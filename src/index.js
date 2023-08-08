@@ -5,7 +5,15 @@ async function getWeather() {
         mode: 'cors',
     });
     const weatherData = await weatherRequest.json()
-    return weatherData
+    getData(weatherData)
 }
 
-console.log(await getWeather());
+function getData(requestData) {
+    const tempC = requestData.current.temp_c;
+    const tempF = requestData.current.temp_f;
+    const condition = requestData.current.condition.text;
+    const humidity = requestData.current.humidity
+    console.log({tempC,tempF,humidity,condition})
+}
+
+getWeather();
