@@ -114,9 +114,9 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\nconst APIKey = '2169b314ae6347c5b7d73631230808';\n\nasync function getWeather(location) {\n    const currentURL = `http://api.weatherapi.com/v1/current.json?key=${APIKey}&q=${location}`;\n    const forecastURL = `http://api.weatherapi.com/v1/forecast.json?key=${APIKey}&q=${location}&days=3&aqi=yes&alerts=yes`;\n    const currentweatherRespnese = fetch(currentURL, {mode: 'cors'});\n    const forecastWeatherResponse = fetch(forecastURL, {mode:'cors'});\n    const weatherResponse = await Promise.all([\n        currentweatherRespnese,\n        forecastWeatherResponse,\n    ])\n    \n    const weatherData = weatherResponse.map(value => value.json())\n    console.log('response', weatherResponse)\n    const [currentWeatherData, forecastWeatherData] = weatherData;\n    const currentWeatherInformation = getCurrentInformation(await currentWeatherData)\n    const forecastWeatherInformation = getForecastInformation(await forecastWeatherData)\n    return currentWeatherData\n\n}\n\nfunction getForecastInformation(requestData) {\n\n}\n\nfunction getCurrentInformation(requestData) {\n    console.log(requestData)\n    const tempC = requestData.current.temp_c;\n    const tempF = requestData.current.temp_f;\n    const condition = requestData.current.condition.text;\n    const humidity = requestData.current.humidity;\n    const windSpeedK = requestData.current.wind_kph;\n    const windSpeedM = requestData.current.wind_mph;\n    const windDirection = requestData.current.wind_dir;\n    return {tempC,tempF,humidity,condition,windDirection,windSpeedK,windSpeedM};\n}\n\nconsole.log('data', await getWeather('manama'));\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } }, 1);\n\n//# sourceURL=webpack://weather-app/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\nconst APIKey = '2169b314ae6347c5b7d73631230808';\n\nasync function getWeather(location) {\n    const forecastURL = `http://api.weatherapi.com/v1/forecast.json?key=${APIKey}&q=${location}&days=3&aqi=yes&alerts=yes`;\n    const forecastWeatherResponse = await fetch(forecastURL, {mode:'cors'});\n    const forecastWeatherData = await forecastWeatherResponse.json();\n    const forecastDays = (await forecastWeatherData).forecast.forecastday;\n    const forecastWeatherInformation = getForecastInformation(await forecastDays)\n    return forecastWeatherInformation;\n\n}\n\nfunction getForecastInformation(forecastDays) {\n    console.log(forecastDays)\n    const forecastDaysInformation = forecastDays.map(day => {\n        const dayData = day.day\n        return {\n            date: day.date,\n            tempC: dayData.avgtemp_c,\n            day: new Date(day.date).toLocaleDateString('en-US', {weekday: 'long'}),\n            tempF: dayData.avgtemp_f,\n            condition: dayData.condition.text,\n            icon: dayData.condition.icon,\n            humidity: dayData.avghumidity,\n            windSpeedK: dayData.maxwind_kph,\n            windSpeedM: dayData.maxwind_mph,\n            chanceOfRain: dayData.daily_chance_of_rain,\n            ChanceOfSnow: dayData.daily_chance_of_snow,\n        }\n    })\n    console.log('forecast', forecastDaysInformation)\n}\n\n\n//# sourceURL=webpack://weather-app/./src/index.js?");
 
 /***/ })
 
@@ -147,75 +147,6 @@ eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/async module */
-/******/ 	(() => {
-/******/ 		var webpackQueues = typeof Symbol === "function" ? Symbol("webpack queues") : "__webpack_queues__";
-/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
-/******/ 		var webpackError = typeof Symbol === "function" ? Symbol("webpack error") : "__webpack_error__";
-/******/ 		var resolveQueue = (queue) => {
-/******/ 			if(queue && queue.d < 1) {
-/******/ 				queue.d = 1;
-/******/ 				queue.forEach((fn) => (fn.r--));
-/******/ 				queue.forEach((fn) => (fn.r-- ? fn.r++ : fn()));
-/******/ 			}
-/******/ 		}
-/******/ 		var wrapDeps = (deps) => (deps.map((dep) => {
-/******/ 			if(dep !== null && typeof dep === "object") {
-/******/ 				if(dep[webpackQueues]) return dep;
-/******/ 				if(dep.then) {
-/******/ 					var queue = [];
-/******/ 					queue.d = 0;
-/******/ 					dep.then((r) => {
-/******/ 						obj[webpackExports] = r;
-/******/ 						resolveQueue(queue);
-/******/ 					}, (e) => {
-/******/ 						obj[webpackError] = e;
-/******/ 						resolveQueue(queue);
-/******/ 					});
-/******/ 					var obj = {};
-/******/ 					obj[webpackQueues] = (fn) => (fn(queue));
-/******/ 					return obj;
-/******/ 				}
-/******/ 			}
-/******/ 			var ret = {};
-/******/ 			ret[webpackQueues] = x => {};
-/******/ 			ret[webpackExports] = dep;
-/******/ 			return ret;
-/******/ 		}));
-/******/ 		__webpack_require__.a = (module, body, hasAwait) => {
-/******/ 			var queue;
-/******/ 			hasAwait && ((queue = []).d = -1);
-/******/ 			var depQueues = new Set();
-/******/ 			var exports = module.exports;
-/******/ 			var currentDeps;
-/******/ 			var outerResolve;
-/******/ 			var reject;
-/******/ 			var promise = new Promise((resolve, rej) => {
-/******/ 				reject = rej;
-/******/ 				outerResolve = resolve;
-/******/ 			});
-/******/ 			promise[webpackExports] = exports;
-/******/ 			promise[webpackQueues] = (fn) => (queue && fn(queue), depQueues.forEach(fn), promise["catch"](x => {}));
-/******/ 			module.exports = promise;
-/******/ 			body((deps) => {
-/******/ 				currentDeps = wrapDeps(deps);
-/******/ 				var fn;
-/******/ 				var getResult = () => (currentDeps.map((d) => {
-/******/ 					if(d[webpackError]) throw d[webpackError];
-/******/ 					return d[webpackExports];
-/******/ 				}))
-/******/ 				var promise = new Promise((resolve) => {
-/******/ 					fn = () => (resolve(getResult));
-/******/ 					fn.r = 0;
-/******/ 					var fnQueue = (q) => (q !== queue && !depQueues.has(q) && (depQueues.add(q), q && !q.d && (fn.r++, q.push(fn))));
-/******/ 					currentDeps.map((dep) => (dep[webpackQueues](fnQueue)));
-/******/ 				});
-/******/ 				return fn.r ? promise : getResult();
-/******/ 			}, (err) => ((err ? reject(promise[webpackError] = err) : outerResolve(exports)), resolveQueue(queue)));
-/******/ 			queue && queue.d < 0 && (queue.d = 0);
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
