@@ -5,9 +5,14 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-    <div id="header"></div>
+    <div id="header">
+        <h2>Weather App</h2>
+        <form id="location-form">
+            <input type="text" name="location" id="location" placeholder="location">
+            <button type="submit">Search Location</button>
+        </form>
+    </div>
     <div id="main-content"></div>
-    <div id="days"></div>
     <div id="footer"></div>
 </body>
 </html>
