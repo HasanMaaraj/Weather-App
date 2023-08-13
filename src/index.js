@@ -120,7 +120,7 @@ const getForecastInformation = async (forecastDays) => {
             windSpeedK: dayData.maxwind_kph,
             windSpeedM: dayData.maxwind_mph,
             chanceOfRain: dayData.daily_chance_of_rain,
-            ChanceOfSnow: dayData.daily_chance_of_snow,
+            chanceOfSnow: dayData.daily_chance_of_snow,
         };
     })
     return forecastDaysInformation;
