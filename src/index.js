@@ -9,14 +9,11 @@ const getWeather = async (location) => {
     const forecastWeatherData = await forecastWeatherResponse.json();
     const forecastDays = (await forecastWeatherData).forecast.forecastday;
     const forecastWeatherInformation = getForecastInformation(await forecastDays)
-    console.log(await forecastWeatherInformation);
     const locationHeader = document.createElement('h2')
     locationHeader.className = 'location-header';
     locationHeader.textContent = location;
     document.getElementById('main-content').appendChild(locationHeader);
     Array.from(await forecastWeatherInformation).forEach(day => createDayCard(day))
-    console.log('forecast', await forecastWeatherInformation);
-
 }
 
 
@@ -86,7 +83,6 @@ const createDayCard = (day) => {
         metric.addEventListener('click', () => {
         temperature.textContent = `${day.tempC}°C`;
         windSpeed.textContent = `Wind speed: ${day.windSpeedK} Km/h`;
-        console.log(temperature)
     });
     cardFooter.appendChild(metric);
     dayCard.appendChild(cardFooter);
@@ -128,12 +124,7 @@ const getForecastInformation = async (forecastDays) => {
 document.getElementById('location-form').addEventListener('submit', e => {
     e.preventDefault();
     const location = document.getElementById('location').value;
-    // try {
-        const info = getWeather(location);
-        console.log('info', info)
-        // .catch(() => alert(`${location} is not a location`));
-    // } 
-    // catch {
-    //     alert(`${location} is not a location`)
-    // }
+    
+    getWeather(location);
+        
 })
