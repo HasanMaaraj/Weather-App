@@ -1,0 +1,143 @@
+:root {
+    --primary-color: #91C8E4;
+    --secondary-color: #4682A9;
+    --light-color: #F6F4EB;
+    --primary-font-color: #003B4A;
+    --secondary-font-color: #F6F4EB;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#container {
+    display: grid;
+    grid-template-rows: minmax(75px, 10vh) minmax(600px, 80vh) minmax(75px, 10vh);
+}
+
+#header {
+    background-color: var(--primary-color);
+    color: var(--primary-font-color); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+}
+
+#header form * {
+    height: 25px;
+    font-size: 1.1rem;
+}
+
+#main-content {
+    background-color: var(--light-color);
+    color: var(--primary-font-color);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 50px 1fr;
+    justify-content: center;
+    justify-items: center;
+}
+
+.location-header {
+    grid-column: 1/4;
+}
+
+.day-card {
+    width: 80%;
+    height: 400px;
+    display: grid;
+    grid-template-rows: 30% 50% 20%;
+}
+
+.card-header {
+    background-color: var(--secondary-color);
+    color: var(--secondary-font-color);
+    font-size: 1.2rem;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 55px);
+    justify-items: center;
+}
+
+.day-name {
+    align-self: center;
+}
+
+.card-body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+}
+
+.temperature{
+    grid-column-start: 1;
+    grid-row: 1/3;
+    font-size: 2rem;
+
+}
+
+.wind-speed{
+    grid-column-start: 1;
+    grid-row-start: 3;
+    font-size: 1.3rem;
+}
+.humidity,
+.rain,
+.snow {
+    grid-column-start: 2;
+    font-size: 1.3rem
+}
+
+.card-footer {
+    background-color: var(--secondary-color);
+    color: var(--secondary-font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.imperial-btn,
+.metric-btn {
+    background-color: var(--primary-color);
+    color: var(--primary-font-color);
+    height: 50%;
+    font-size: 1.2rem;
+}
+
+.imperial-btn {
+    margin-right: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.metric-btn {
+    margin-left: 0px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.day-card {
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    box-shadow: 1px 1px 5px var(--secondary-color);
+}
+
+#footer {
+    background-color: var(--secondary-color);
+    color: var(--secondary-font-color);
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer a:visited {
+    color: black;
+}

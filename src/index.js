@@ -2,8 +2,6 @@ import './style.css';
 
 const APIKey = '2169b314ae6347c5b7d73631230808';
 
-
-
 const getWeather = async (location) => {
     clearMainContent();
     const forecastURL = `http://api.weatherapi.com/v1/forecast.json?key=${APIKey}&q=${location}&days=3&aqi=yes&alerts=yes`;
@@ -12,13 +10,13 @@ const getWeather = async (location) => {
     const forecastDays = (await forecastWeatherData).forecast.forecastday;
     const forecastWeatherInformation = getForecastInformation(await forecastDays)
     console.log(await forecastWeatherInformation);
-    const locationHeader = document.createElement('h3')
+    const locationHeader = document.createElement('h2')
     locationHeader.className = 'location-header';
     locationHeader.textContent = location;
     document.getElementById('main-content').appendChild(locationHeader);
     Array.from(await forecastWeatherInformation).forEach(day => createDayCard(day))
     console.log('forecast', await forecastWeatherInformation);
-  
+
 }
 
 
@@ -54,19 +52,19 @@ const createDayCard = (day) => {
     cardBody.appendChild(temperature)
     const windSpeed = document.createElement('div');
     windSpeed.className = 'wind-speed';
-    windSpeed.textContent = `${day.windSpeedK} Km/h`;
+    windSpeed.textContent = `Wind speed: ${day.windSpeedK} Km/h`;
     cardBody.appendChild(windSpeed)
     const humidity = document.createElement('div');
     humidity.className = 'humidity';
-    humidity.textContent = `Humidity: ${day.humidity}`;
+    humidity.textContent = `Humidity: ${day.humidity}%`;
     cardBody.appendChild(humidity)
     const chanceOfRain = document.createElement('div');
     chanceOfRain.className = 'rain';
-    chanceOfRain.textContent = `Chance Of Rain: ${day.chanceOfRain}`;
+    chanceOfRain.textContent = `Chance Of Rain: ${day.chanceOfRain}%`;
     cardBody.appendChild(chanceOfRain)
     const chanceOfSnow = document.createElement('div');
     chanceOfSnow.className = 'snow';
-    chanceOfSnow.textContent = `Chance Of Snow: ${day.chanceOfSnow}`;
+    chanceOfSnow.textContent = `Chance Of Snow: ${day.chanceOfSnow}%`;
     cardBody.appendChild(chanceOfSnow)
     dayCard.appendChild(cardBody);
     // Card footer elements
@@ -78,7 +76,7 @@ const createDayCard = (day) => {
     // Convert to imperial units
     imperial.addEventListener('click', () => {
         temperature.textContent = `${day.tempF}°F`;
-        windSpeed.textContent = `${day.windSpeedM} mi/h`;
+        windSpeed.textContent = `Wind speed: ${day.windSpeedM} mi/h`;
     });
     cardFooter.appendChild(imperial);
     const metric = document.createElement('button');
@@ -87,7 +85,7 @@ const createDayCard = (day) => {
     // Convert to metric units
         metric.addEventListener('click', () => {
         temperature.textContent = `${day.tempC}°C`;
-        windSpeed.textContent = `${day.windSpeedK} Km/h`;
+        windSpeed.textContent = `Wind speed: ${day.windSpeedK} Km/h`;
         console.log(temperature)
     });
     cardFooter.appendChild(metric);
